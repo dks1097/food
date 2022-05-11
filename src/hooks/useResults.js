@@ -6,20 +6,20 @@ export default () => {
   const [errorMessage, setErrorMessage] = useState("");
 
   const searchApi = async (searchTerm) => {
-    yelp
-      .get("/search", {
+    try{
+      const response =await yelp.get("/search", {
         params: {
           limit: 50,
           term: searchTerm,
-          location: "porto",
-        },
-      })
-      .then((response) => {
-        setResults(response.data.businesses);
-      })
-      .catch((err) => {
-        setErrorMessage("Something went wrong");
+          location: "california",
+        }
       });
+      
+        setResults(response.data.businesses);
+      }
+      catch(err ){
+        setErrorMessage("Something went wrong");
+      };
   };
   useEffect(() => {
     searchApi("pizza");
